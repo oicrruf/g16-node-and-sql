@@ -15,6 +15,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/v1/', indexRouter);
+app.use("/health", (req, res, next) => res.send({ status: "OK" }));
+app.use("*", (req, res, next) => res.send({ message: "Not found" }));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

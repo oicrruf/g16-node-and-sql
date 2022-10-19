@@ -1,8 +1,8 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 
-router.get('/', function(req, res, next) {
-  res.send({ server: 'Express with SQL' });
-});
+router.get("/", (req, res, next) => res.send({ name: "Express with SQL" }));
+
+
 
 module.exports = router;
