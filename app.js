@@ -7,7 +7,12 @@ const package = require("./package.json");
 
 require("dotenv").config();
 
+// const { PrismaClient } = require('@prisma/client')
+// const prisma = new PrismaClient()
+
 var indexRouter = require("./routes/index");
+
+var categoryRouter = require("./routes/categories");
 
 var app = express();
 
@@ -18,6 +23,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/api/v1/", indexRouter);
+
+app.use("/api/v1/category", categoryRouter);
+
 app.use("/health", (req, res, next) => {
       let healthInfo = {
             status: "OK",

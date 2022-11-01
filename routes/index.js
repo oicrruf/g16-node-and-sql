@@ -4,6 +4,9 @@ const package = require("../package.json");
 const time = Date.now();
 const now = new Date(time);
 
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
+
 router.get("/", (req, res, next) =>
   res.send({ name: package.name, date: now.toString() })
 );
