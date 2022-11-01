@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model category {
+  id         Int     @id @default(autoincrement())
+  name       String  @db.VarChar(255)
+  fandom     Boolean
+  product_id Int
+  product    product @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  funko      funko[]
+}
+
+model exclusivity {
+  id    Int     @id
+  name  String  @db.VarChar(255)
+  logo  String  @db.VarChar(255)
+  funko funko[]
+}
+
+model funko {
+  id              Int             @id @default(autoincrement())
+  name            String          @db.VarChar(255)
+  description     String
+  price           Float
+  sku             String          @db.VarChar(15)
+  category_id     Int
+  product_type_id Int
+  exclusivity_id  Int
+  category        category        @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  exclusivity     exclusivity     @relation(fields: [exclusivity_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  product_type    product_type    @relation(fields: [product_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  funko_picture   funko_picture[]
+  license_funko   license_funko[] @ignore
+  stock           stock[]
+}
+
+model funko_picture {
+  id       Int    @id @default(autoincrement())
+  funko_id Int
+  url      String
+  funko    funko  @relation(fields: [funko_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model license {
+  id            Int             @id @default(autoincrement())
+  name          String          @db.VarChar(255)
+  license_funko license_funko[] @ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model license_funko {
+  license_id Int?
+  funko_id   Int?
+  funko      funko?   @relation(fields: [funko_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  license    license? @relation(fields: [license_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@ignore
+}
+
+model product {
+  id       Int        @id @default(autoincrement())
+  name     String     @db.VarChar(255)
+  category category[]
+}
+
+model product_type {
+  id    Int     @id @default(autoincrement())
+  name  String  @db.VarChar(255)
+  funko funko[]
+}
+
+// model spatial_ref_sys {
+//   srid      Int     @id
+//   auth_name String? @db.VarChar(256)
+//   auth_srid Int?
+//   srtext    String? @db.VarChar(2048)
+//   proj4text String? @db.VarChar(2048)
+// }
+
+model stock {
+  id       Int     @id @default(autoincrement())
+  funko_id Int
+  in       Boolean
+  quantity Int
+  funko    funko   @relation(fields: [funko_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
