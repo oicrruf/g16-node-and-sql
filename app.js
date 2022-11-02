@@ -13,6 +13,7 @@ require("dotenv").config();
 var indexRouter = require("./routes/index");
 
 var categoryRouter = require("./routes/categories");
+var exclusivityRouter = require("./routes/exclusivities");
 
 var app = express();
 
@@ -25,6 +26,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/v1/", indexRouter);
 
 app.use("/api/v1/category", categoryRouter);
+app.use("/api/v1/exclusivity", exclusivityRouter);
+
 
 app.use("/health", (req, res, next) => {
       let healthInfo = {
