@@ -13,6 +13,8 @@ require("dotenv").config();
 var indexRouter = require("./routes/index");
 
 var categoryRouter = require("./routes/categories");
+var productRouter = require("./routes/products");
+var product_typeRouter = require("./routes/product_types");
 
 var app = express();
 
@@ -25,6 +27,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/v1/", indexRouter);
 
 app.use("/api/v1/category", categoryRouter);
+app.use("/api/v1/product", productRouter);
+app.use("/api/v1/product_type", product_typeRouter);
+
 
 app.use("/health", (req, res, next) => {
       let healthInfo = {
