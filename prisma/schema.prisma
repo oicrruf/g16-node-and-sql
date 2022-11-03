@@ -1,10 +1,12 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
 }
 
 model category {
@@ -55,6 +57,7 @@ model license {
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model license_funko {
+  id         Int      @id @default(autoincrement())
   license_id Int?
   funko_id   Int?
   funko      funko?   @relation(fields: [funko_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -74,14 +77,6 @@ model product_type {
   name  String  @db.VarChar(255)
   funko funko[]
 }
-
-// model spatial_ref_sys {
-//   srid      Int     @id
-//   auth_name String? @db.VarChar(256)
-//   auth_srid Int?
-//   srtext    String? @db.VarChar(2048)
-//   proj4text String? @db.VarChar(2048)
-// }
 
 model stock {
   id       Int     @id @default(autoincrement())

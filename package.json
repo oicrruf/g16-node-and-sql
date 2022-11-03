@@ -7,6 +7,9 @@
     "dev": "nodemon ./bin/www",
     "sync-env": "npx sync-dotenv"
   },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
   "dependencies": {
     "@prisma/client": "^4.5.0",
     "cookie-parser": "~1.4.4",
