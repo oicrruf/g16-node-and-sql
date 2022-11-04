@@ -85,3 +85,10 @@ model stock {
   quantity Int
   funko    funko   @relation(fields: [funko_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
+
+model sold {
+  id       Int     @id @default(autoincrement())
+  quantity Int
+  amount   Int
+  new      Boolean
+}
