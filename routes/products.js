@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const {timeStamp, userIsValid} = require('../src/middleware')
 
-router.get("/", async (req, res, next) => {
+router.get("/", timeStamp, userIsValid, async (req, res, next) => {
   const products = await prisma.product.findMany(); // SELECT
   res.send({ data: products });
 });
