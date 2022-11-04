@@ -8,7 +8,7 @@
     "sync-env": "npx sync-dotenv"
   },
   "prisma": {
-    "seed": "node prisma/seed.js"
+    "seed": "node src/seeds/seed.js"
   },
   "dependencies": {
     "@prisma/client": "^4.5.0",

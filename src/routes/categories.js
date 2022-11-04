@@ -2,19 +2,26 @@ const express = require("express");
 const router = express.Router();
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const { isValid } = require("../validations");
 
 router.get("/", async (req, res, next) => {
   const categories = await prisma.category.findMany(); // SELECT
   res.send({ data: categories });
 });
 
-router.get("/:id", async (req, res, next) => {
-  const category = await prisma.category.findUnique({
-    where: {
-      id: parseInt(req.params.id),
-    },
-  }); // SELECT
-  res.send({ data: category });
+router.get("/unique", async (req, res, next) => {
+  const error = isValid(req.body);
+
+  if (error) {
+    const category = await prisma.category.findUnique({
+      where: {
+        id: parseInt(req.body.id),
+      },
+    }); // SELECT
+    res.send({ data: category });
+  } else {
+    res.send({ error: `The id is required` });
+  }
 });
 
 router.post("/", async (req, res, next) => {

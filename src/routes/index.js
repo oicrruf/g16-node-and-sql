@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const package = require("../package.json");
+const package = require("../../package.json");
 const time = Date.now();
 const now = new Date(time);
 

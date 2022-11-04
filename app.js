@@ -11,14 +11,14 @@ require("dotenv").config();
 // const { PrismaClient } = require('@prisma/client')
 // const prisma = new PrismaClient()
 
-var indexRouter = require("./routes/index");
+var indexRouter = require("./src/routes/index");
 
-var categoryRouter = require("./routes/categories");
+var categoryRouter = require("./src/routes/categories");
 
-var productRouter = require("./routes/products");
-var product_typeRouter = require("./routes/product_types");
+var productRouter = require("./src/routes/products");
+var product_typeRouter = require("./src/routes/product_types");
 
-var exclusivityRouter = require("./routes/exclusivities");
+var exclusivityRouter = require("./src/routes/exclusivities");
 
 var app = express();
 
