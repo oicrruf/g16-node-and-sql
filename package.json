@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
-    "sync-env": "npx sync-dotenv"
+    "sync-env": "npx sync-dotenv",
+    "prepare": "husky install"
   },
   "prisma": {
     "seed": "node src/seeds/seed.js"
@@ -22,6 +23,7 @@
   "devDependencies": {
     "nodemon": "^2.0.20",
     "prisma": "^4.5.0",
-    "sync-dotenv": "^2.7.0"
+    "sync-dotenv": "^2.7.0",
+    "husky": "^8.0.0"
   }
 }
